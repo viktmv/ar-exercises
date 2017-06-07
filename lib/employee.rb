@@ -5,5 +5,9 @@ class Employee < ActiveRecord::Base
             presence: true,
             numericality: :only_integer,
             inclusion: { in: 40..200 }
-validates_associated :store
+  validates_associated :store
+
+  after_create do
+    self.password = (0...8).map { (65 + rand(26)).chr }.join
+  end
 end
