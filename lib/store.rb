@@ -11,4 +11,12 @@ class Store < ActiveRecord::Base
       errors.add(:base, "Shoud carry at least one type of apparel")
     end
   end
+
+  before_destroy :no_employees_validation
+
+  private
+
+  def no_employees_validation
+    throw :abort if employees.count > 1
+  end
 end
